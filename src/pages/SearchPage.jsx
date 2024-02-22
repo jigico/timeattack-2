@@ -10,22 +10,22 @@ function SearchPage() {
   const userId = null;
 
   // URL의 쿼리 스트링을 변경하는 함수
-  const updateSearch = (userId) => {};
+  const updateSearch = (userId) => {
+    console.log(searchParams);
+    setSearchParams(userId);
+  };
 
-  useEffect(() => {}, []);
+  useEffect(async () => {
+    const response = await postsAxios.get("/posts");
+    setPosts(response.data);
+  }, []);
 
-  const filteredPosts = null;
+  const filteredPosts = [];
 
   return (
     <div>
       <h1>Posting 정보 보기</h1>
-      <div>
-        {userId ? (
-          <p>아이디 {userId}님이 쓰신 글</p>
-        ) : (
-          <p>아래 두 버튼 중 하나를 선택해주세요.</p>
-        )}
-      </div>
+      <div>{userId ? <p>아이디 {userId}님이 쓰신 글</p> : <p>아래 두 버튼 중 하나를 선택해주세요.</p>}</div>
 
       <button onClick={() => updateSearch("1")}>1번유저의 글 보기</button>
       <button onClick={() => updateSearch("2")}>2번유저의 글 보기</button>
